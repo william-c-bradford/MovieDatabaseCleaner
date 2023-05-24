@@ -1,9 +1,6 @@
-﻿namespace MovieDatabaseCleaner
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
+﻿namespace MovieDatabaseCleaner {
+    internal class Program {
+        static void Main(string[] args) {
             // Create a new StreamReader object to read the CSV file
             StreamReader reader = new StreamReader("C:\\Users\\MCA\\Downloads\\movies_dated.csv");
             
