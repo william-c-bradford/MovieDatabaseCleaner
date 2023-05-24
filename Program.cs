@@ -7,7 +7,7 @@
             bool headerRow = true;
 
             // Create a new StreamReader object to read the CSV file
-            StreamReader reader = new StreamReader("C:\\Users\\MCA\\Downloads\\movies_dated.csv");
+            StreamReader reader = new StreamReader("C:\\Users\\Jenni\\OneDrive\\Desktop\\Movies Database Files\\movies_dated.csv");
 
             // Create a new List<string[]> to store the data from the CSV file
             List<string[]> data = new List<string[]>();
@@ -59,10 +59,18 @@
                     // Remove the genre from the extra column
                     row[4] = "";
                 }// End if
+
+
+                if (row[2].StartsWith("(") ) {//then
+
+                    row[2] = row[2].Substring(1, 4);
+
+                }//end if
+
             }// End foreach
 
             // Create a new StreamWriter object to write the fixed data to a new CSV file
-            StreamWriter writer = new StreamWriter("C:\\Users\\MCA\\Desktop\\output.csv");
+            StreamWriter writer = new StreamWriter("C:\\Users\\Jenni\\OneDrive\\Desktop\\Movies Database Files\\output.csv");
 
             // Write each line from the List<string[]> to the new CSV file
             foreach (string[] row in data)
