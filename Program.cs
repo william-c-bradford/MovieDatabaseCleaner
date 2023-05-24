@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            bool headerRow = true;
+
             // Create a new StreamReader object to read the CSV file
             StreamReader reader = new StreamReader("C:\\Users\\MCA\\Downloads\\movies_dated.csv");
 
@@ -14,10 +16,13 @@
             string line;
 
             // While the line is not null, read each line from the CSV file
-            while ((line = reader.ReadLine()) != null)
+            while ((reader.EndOfStream == false))
             {
+                line = reader.ReadLine();
+
                 // Split the line and add it to the List<string[]>
                 data.Add(line.Split(','));
+                
             }// End while
 
             // Close the StreamReader object
@@ -64,6 +69,8 @@
             {
                 writer.WriteLine(string.Join(",", row));
             }// End foreach
+
+            //Test Comment for Pull Request test
 
             // Close the StreamWriter object
             writer.Close();
