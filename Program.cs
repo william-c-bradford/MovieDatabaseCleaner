@@ -58,7 +58,7 @@
 
                 if (row[2].StartsWith("(") ) {//then
 
-                    row[2] = row[2].Substring(1, 5);
+                    row[2] = row[2].Substring(1, 4);
 
                 }//end if
 
