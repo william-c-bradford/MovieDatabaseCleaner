@@ -1,8 +1,10 @@
-﻿namespace MovieDatabaseCleaner {
+﻿
+
+namespace MovieDatabaseCleaner {
     internal class Program {
         static void Main(string[] args) {
             // Create a new StreamReader object to read the CSV file
-            StreamReader reader = new StreamReader("C:\\Users\\MCA\\Downloads\\movies_dated.csv");
+            StreamReader reader = new StreamReader("C:\\Users\\MCA Coder\\Downloads\\movies_dated.csv");
             
             // Create a new List<string[]> to store the data from the CSV file
             List<string[]> data = new List<string[]>();
@@ -11,34 +13,43 @@
             string line;
 
             // While the line is not null, read each line from the CSV file
-            while ((line = reader.ReadLine()) != null)
-            {
+            while ((line = reader.ReadLine()) != null) {
                 // Split the line and add it to the List<string[]>
                 data.Add(line.Split(','));
             }// End while
 
             // Close the StreamReader object
             reader.Close();
-
             // Iterate through each index of each row in the List<string[]>
-            foreach (string[] row in data)
-            {
+            foreach (string[] row in data) {
                 // Remove the "-" from the front of the year data
-                if (row[2].StartsWith("-"))
-                {
+                if (row[2].StartsWith("-")) {
                     row[2] = row[2].Substring(1);
-                }// End if
+
+                } else if (row[2].StartsWith("(")) {
+
+                    string unformattedYear = row[2];
+
+                    char firstChar = unformattedYear[1];
+
+                    if (char.IsNumber(firstChar)) {
+                        string newYear = "";
+
+                        for (int i = 1; i < 5; i++) {
+                            newYear += unformattedYear[i];
+                        }
+                        Console.WriteLine(newYear);
+                    }
+                }
 
                 // If the genre data is empty, move the year data to the genre
-                if (row[3].Length == 0)
-                {
+                if (row[3].Length == 0) {
                     row[3] = row[2];
                     row[2] = "";
                 }// End if
 
                 // If the genre beings with "-", it is a year
-                if (row[3].StartsWith("-"))
-                {
+                if (row[3].StartsWith("-")) {
                     // Remove the "-"
                     row[3] = row[3].Substring(1);
 
@@ -54,11 +65,10 @@
             }// End foreach
 
             // Create a new StreamWriter object to write the fixed data to a new CSV file
-            StreamWriter writer = new StreamWriter("C:\\Users\\MCA\\Desktop\\output.csv");
+            StreamWriter writer = new StreamWriter("C:\\Users\\MCA Coder\\Desktop\\output.csv");
 
             // Write each line from the List<string[]> to the new CSV file
-            foreach (string[] row in data)
-            {
+            foreach (string[] row in data) {
                 writer.WriteLine(string.Join(",", row));
             }// End foreach
 
@@ -66,4 +76,4 @@
             writer.Close();
         }// End Main
     }// End Program
-}// End namespace
+}// End
