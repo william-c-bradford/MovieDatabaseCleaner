@@ -1,11 +1,9 @@
-﻿
-
-namespace MovieDatabaseCleaner {
+﻿namespace MovieDatabaseCleaner {
     internal class Program {
         static void Main(string[] args) {
             // Create a new StreamReader object to read the CSV file
             StreamReader reader = new StreamReader("C:\\Users\\MCA Coder\\Downloads\\movies_dated.csv");
-            
+
             // Create a new List<string[]> to store the data from the CSV file
             List<string[]> data = new List<string[]>();
 
@@ -22,6 +20,7 @@ namespace MovieDatabaseCleaner {
             reader.Close();
             // Iterate through each index of each row in the List<string[]>
             foreach (string[] row in data) {
+
                 // Remove the "-" from the front of the year data
                 if (row[2].StartsWith("-")) {
                     row[2] = row[2].Substring(1);
@@ -38,7 +37,6 @@ namespace MovieDatabaseCleaner {
                         for (int i = 1; i < 5; i++) {
                             newYear += unformattedYear[i];
                         }
-                        Console.WriteLine(newYear);
                     }
                 }
 
@@ -62,6 +60,48 @@ namespace MovieDatabaseCleaner {
                     // Remove the genre from the extra column
                     row[4] = "";
                 }// End if
+
+                string year = "";
+
+                // If title row contains a (, and year is blank
+                if (row[1].Contains('(') && (row[2] == "")) {
+
+                //Loop through the title string
+                    for (int i = 0; i < row[1].Length; i++) {
+
+                //Find the open parantheses
+                        if (row[1][i] == '(') {
+
+                //If the next char is a number
+                            if (char.IsNumber(row[1][i + 1])) {
+
+                //Begin where i left off / for loop for building string
+                                for (int j = i; j < row[1].Length; j++) {
+
+                //build year string
+                                    year += row[1][j];
+
+                //if next char is not a number
+                                    if (char.IsNumber(row[1][j + 1]) == false) {
+
+                //if year is more than 4 chars
+                                        if (year.Length < 4) {                                        
+                //discard
+                                            break;
+                                        } else {
+                //else, string is most likely the year
+                                            row[2] = year.Substring(1);
+
+                //shorten the title string to remove the year
+                                            row[1] = (row[1].Remove(row[1].Length - 7));
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }// End foreach
 
             // Create a new StreamWriter object to write the fixed data to a new CSV file
