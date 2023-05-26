@@ -1,4 +1,4 @@
-﻿namespace MovieDatabaseCleaner {
+namespace MovieDatabaseCleaner {
     internal class Program {
         static void Main(string[] args) {
             List<string[]> data;
@@ -23,9 +23,14 @@
             string line;
 
             // While the line is not null, read each line from the CSV file
-            while ((line = reader.ReadLine()) != null) {
+
+            while ((reader.EndOfStream == false))
+            {
+                line = reader.ReadLine();
+
                 // Split the line and add it to the List<string[]>
                 data.Add(line.Split(','));
+                
             }// End while
 
             // Close the StreamReader object
@@ -171,6 +176,8 @@
             foreach (string[] row in data) {
                 writer.WriteLine(string.Join(",", row.Take(4)));
             }// End foreach
+
+            //Test Comment for Pull Request test
 
             // Close the StreamWriter object
             writer.Close();
